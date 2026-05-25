@@ -13,7 +13,7 @@ const database: string = process.env.DATABASE || 'database';
 
 export class DataBase {
     private static instance: DataBase;
-    private typeormDataSource: DataSource;
+    private readonly typeormDataSource: DataSource;
     private readonly host: string;
     private readonly port: number;
     private readonly username: string;
@@ -40,7 +40,10 @@ export class DataBase {
             password: this.password,
             database: this.database,
             entities: [User, Category, Product, Order, OrderDetailsEntity],
-            synchronize: true
+            synchronize: true,
+            ssl: {
+                rejectUnauthorized: false
+            }
         })
     }
 
